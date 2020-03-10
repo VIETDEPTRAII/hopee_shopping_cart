@@ -1,0 +1,28 @@
+<% provide(:title, @shop.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <%= gravatar_for @shop %>
+        Shop name: <%= @shop.name %>
+      </h1>
+      <h1>
+        Email: <%= @shop.email %>
+      </h1>
+      <h1>
+        Phone: <%= @shop.phone %>
+      </h1>
+      <h1>
+        Address: <%= @shop.address %>
+      </h1>
+      <% if @shop.description && @shop.description != '' && @shop.description != nil %>
+        <h1>
+          Description: <%= @shop.description %>
+        </h1>
+      <% end %>
+      <h1>
+        Tax code: <%= @shop.tax_code %>
+      </h1>
+    </section>
+  </aside>
+</div>
