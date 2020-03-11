@@ -15,6 +15,7 @@ class ShopsController < ApplicationController
     @shop = Shop.new(shop_params)
     if @shop.save
       flash[:success] = "Welcome to the your shop"
+      log_in @shop
       redirect_to @shop
     else
       render 'new'
