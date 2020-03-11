@@ -1,7 +1,6 @@
 class ShopsController < ApplicationController
-
-  def new
-  end
+  before_action :logged_in_shop, only: %i[edit update]
+  before_action :correct_shop,   only: %i[edit update]
 
   def show
     @shop = Shop.find(params[:id])
@@ -14,11 +13,25 @@ class ShopsController < ApplicationController
   def create
     @shop = Shop.new(shop_params)
     if @shop.save
-      flash[:success] = "Welcome to the your shop"
+      flash[:success] = 'Welcome to the your shop'
       log_in @shop
       redirect_to @shop
     else
       render 'new'
+    end
+  end
+
+  def edit
+    @shop = Shop.find(params[:id])
+  end
+
+  def update
+    @shop = Shop.find(params[:id])
+    if @shop.update_attributes(shop_params)
+      flash[:success] = 'Shop profile updated'
+      redirect_to @shop
+    else
+      render 'edit'
     end
   end
 
@@ -28,5 +41,22 @@ class ShopsController < ApplicationController
     params.require(:shop).permit(:name, :email, :password,
                                  :password_confirmation, :phone, :address,
                                  :description, :tax_code)
+  end
+
+  # Before filters
+
+  # Confirms a logged-in user.
+  def logged_in_shop
+    unless logged_in_shop?
+      store_location
+      flash[:danger] = 'Please login to your shop!'
+      redirect_to login_shop_path
+    end
+  end
+
+  # Confirms the correct shop.
+  def correct_shop
+    @shop = Shop.find(params[:id])
+    redirect_to(root_url) unless current_shop?(@shop)
   end
 end
