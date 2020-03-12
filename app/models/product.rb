@@ -4,9 +4,10 @@ class Product < ApplicationRecord
   mount_uploader :picture, PictureUploader
   validates :shop_id, presence: true
   validates :name, presence: true, length: { maximum: 150 }
-  validates :description, length: { maximum: 255 }
+  validates :description, presence: true, length: { maximum: 255 }
   validates :price, presence: true
   validates :total, presence: true
+  validates :picture, presence: true
   validate :picture_size
 
   private

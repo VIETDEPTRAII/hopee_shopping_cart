@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :logged_in_shop, only: %i[create update destroy]
-  before_action :correct_shop,   only: %i[update destroy]
+  before_action :logged_in_shop, only: %i[index show new edit create update destroy]
+  before_action :correct_shop,   only: %i[show edit update destroy]
 
   def index
     @products = current_shop.products.paginate(page: params[:page])

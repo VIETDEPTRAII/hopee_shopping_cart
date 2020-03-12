@@ -1,8 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
-
 /* mixins, variables, etc. */
 $gray-medium-light: #eaeaea;
 
@@ -223,6 +221,7 @@ span.picture {
   margin-left: 10px;
 }
 
+/* border of Card */
 body > div > div > div > div {
   border: gray solid 1px;
 }
