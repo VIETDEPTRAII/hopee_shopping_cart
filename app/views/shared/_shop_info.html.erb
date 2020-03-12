@@ -1,0 +1,4 @@
+<%= link_to gravatar_for(current_shop, size: 130), current_shop %>
+<h1><%= current_shop.name %></h1>
+<span><%= link_to "View my shop profile", current_shop %></span>
+<span><%= pluralize(current_shop.products.count, "product") %></span>

@@ -45,15 +45,6 @@ class ShopsController < ApplicationController
 
   # Before filters
 
-  # Confirms a logged-in user.
-  def logged_in_shop
-    unless logged_in_shop?
-      store_location
-      flash[:danger] = 'Please login to your shop!'
-      redirect_to login_shop_path
-    end
-  end
-
   # Confirms the correct shop.
   def correct_shop
     @shop = Shop.find(params[:id])

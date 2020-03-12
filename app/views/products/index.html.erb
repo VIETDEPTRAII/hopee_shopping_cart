@@ -1,0 +1,22 @@
+<% provide(:title, "Products") %>
+<%= link_to "Create product", new_product_path, class: "btn btn-primary" %>
+<div class="row">
+  <% @products.each do |p| %>
+    <div class="col-md-3 col-sm-6" style="margin-top: 20px">
+      <div class="card">
+        <img src="<%= p.picture %>" class="card-img-top" style="width: 212px; height: 200px" alt="product">
+        <div class="card-body">
+          <h5 class="card-title" style="padding-left: 5px">Name: <%= p.name %></h5>
+          <h5 class="card-text" style="padding-left: 5px">Price: <%= p.price %></h5>
+          <h5 class="card-text" style="padding-left: 5px">Quantity: <%= p.total %></h5>
+          <%= link_to "View", product_path(p.id), class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div style="text-align: center;"><%= will_paginate %></div>
+
+
+
