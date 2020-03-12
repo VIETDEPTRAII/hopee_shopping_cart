@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_11_072232) do
+ActiveRecord::Schema.define(version: 2020_03_12_082519) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "shop_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "description"
+    t.index ["shop_id", "created_at"], name: "index_categories_on_shop_id_and_created_at"
+    t.index ["shop_id"], name: "index_categories_on_shop_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
@@ -38,5 +48,6 @@ ActiveRecord::Schema.define(version: 2020_03_11_072232) do
     t.index ["email"], name: "index_shops_on_email", unique: true
   end
 
+  add_foreign_key "categories", "shops"
   add_foreign_key "products", "shops"
 end

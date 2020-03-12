@@ -55,8 +55,6 @@ class ProductsController < ApplicationController
     redirect_to root_url if @product.nil?
   end
 
-  private
-
   def product_params
     params.require(:product).permit(:name, :description, :price,
                                     :total, :picture)

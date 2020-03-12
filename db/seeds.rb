@@ -17,11 +17,20 @@ Shop.create!(name: 'THANH VIET ELECTRONIC',
              tax_code: '123ABC')
 
 # Product
+# 65.times do |n = 0|
+#   name = "Product #{n + 1}"
+#   Product.create!(name: name,
+#                   description: 'Test',
+#                   price: 1_000_000,
+#                   shop_id: 1,
+#                   total: 50)
+# end
+
+# Category
 65.times do |n = 0|
-  name = "Product #{n + 1}"
-  Product.create!(name: name,
-                  description: 'Test',
-                  price: 1_000_000,
-                  shop_id: 1,
-                  total: 50)
+  name = "Category #{n + 1}"
+  desc = "Description #{n + 1}"
+  Category.create!(name: name,
+                   shop_id: 1,
+                   description: desc)
 end

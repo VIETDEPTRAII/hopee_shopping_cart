@@ -1,5 +1,6 @@
 class Shop < ApplicationRecord
   has_many :products, dependent: :destroy
+  has_many :categories, dependent: :destroy
 
   before_save { self.email = email.downcase }
   validates :name, presence: true, length: { maximum: 50 }
