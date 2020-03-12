@@ -1,5 +1,8 @@
 <% provide(:title, "Products") %>
-<%= link_to "Create product", new_product_path, class: "btn btn-primary" %>
+
+<div style="text-align: center;"><h1>List products</h1></div>
+<%= link_to "New product", new_product_path, class: "btn btn-primary" %>
+
 <div class="row">
   <% @products.each do |p| %>
     <div class="col-md-3 col-sm-6" style="margin-top: 20px">

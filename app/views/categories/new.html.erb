@@ -1,0 +1,16 @@
+<% provide(:title, "Create category") %>
+<h1>Create category</h1>
+
+<%= form_for(@category) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+
+    <%= f.label :description %>
+    <%= f.text_area :description, class: "form-control" %>
+
+    <%= f.submit "Create category", class: "btn btn-primary" %>
+  </div>
+<% end %>

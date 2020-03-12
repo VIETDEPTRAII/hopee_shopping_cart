@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'categories/index'
+  get 'categories/new'
   get 'sessions/new'
   get 'shops/new'
   root 'static_pages#home'
@@ -12,4 +14,5 @@ Rails.application.routes.draw do
   delete '/logout_shop', to: 'sessions#destroy'
   resources :shops
   resources :products
+  resources :categories
 end
