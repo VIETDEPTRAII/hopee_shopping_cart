@@ -27,7 +27,7 @@ Shop.create!(name: 'THANH VIET ELECTRONIC',
 # end
 
 # Category
-65.times do |n = 0|
+4.times do |n = 0|
   name = "Category #{n + 1}"
   desc = "Description #{n + 1}"
   Category.create!(name: name,
