@@ -1,5 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :shop
+  has_many :products_categories
+  has_many :categories, through: :products_categories
+
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
   validates :shop_id, presence: true
