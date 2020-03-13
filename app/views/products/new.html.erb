@@ -7,6 +7,9 @@
     <%= f.label :name, "Product name" %>
     <%= f.text_field :name, class: "form-control" %>
 
+    <%= f.label :category_ids, "Select category" %>
+    <%= f.collection_select :category_ids, current_shop.categories, :id, :name %>
+
     <%= f.label :description %>
     <%= f.text_area :description, class: "form-control" %>
 
