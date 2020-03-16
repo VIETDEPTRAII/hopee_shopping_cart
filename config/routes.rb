@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/search', to: 'pages#search_product_by_name'
   get 'categories/index'
   get 'categories/new'
   get 'sessions/new'
