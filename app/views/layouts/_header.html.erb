@@ -5,7 +5,6 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "Help",   help_path %></li>
-
         <% if logged_in_shop? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -25,25 +24,21 @@
         <% else %>
           <li><%= link_to "Login shop", login_shop_path %></li>
         <% end %>
-
         <% if logged_in_shop? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Products <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "All categories", categories_path %></li>
+              <li style="padding-left: 20px"><h4>All categories</h4></li>
               <% categories = current_shop.categories %>
               <% categories.each do |c| %>
                 <li class="divider"></li>
-                <li><%= link_to c.name, "#" %></li>
+                <li><%= link_to c.name, category_path(c) %></li>
               <% end %>
             </ul>
           </li>
-        <% else %>
-          <li><%= link_to "Login shop", login_shop_path %></li>
         <% end %>
-
         <li><%= link_to "Sign up shop", signup_shop_path %></li>
       </ul>
     </nav>

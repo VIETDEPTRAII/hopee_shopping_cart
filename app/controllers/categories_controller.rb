@@ -1,9 +1,14 @@
 class CategoriesController < ApplicationController
-  before_action :logged_in_shop, only: %i[index new edit create update destroy]
+  before_action :logged_in_shop, only: %i[index show new edit create update destroy]
   before_action :correct_shop,   only: %i[show edit update destroy]
 
   def index
     @categories = current_shop.categories.paginate(page: params[:page])
+  end
+
+  def show
+    @category = current_shop.categories.find(params[:id])
+    @products = @category.products.paginate(page: params[:page], per_page: 8)
   end
 
   def new
