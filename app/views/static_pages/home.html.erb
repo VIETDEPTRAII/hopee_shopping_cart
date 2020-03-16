@@ -1,37 +1,28 @@
 <% provide(:title, "Home") %>
 
-<% if logged_in_shop? %>
-  <div style="text-align: center;"><h1>Home page</h1></div>
-  <% @categories.each do |c| %>
+<div style="text-align: center;"><h1>Home page</h1></div>
+<% @categories.each do |c| %>
   <h3 style="border-bottom: #2E2F30 solid 1px "><%= c.name %></h3>
   <div class="row">
     <% c.products.each do |p| %>
       <div class="col-md-3 col-sm-6" style="margin-top: 20px">
         <div class="card">
-          <img src="<%= p.picture %>" class="card-img-top" style="width: 212px; height: 200px" alt="product">
+          <a href="<%= product_path(p.id) %>">
+            <img src="<%= p.picture %>" class="card-img-top" style="width: 212px;
+              height: 200px" alt="<%= p.name %>">
+          </a>
           <div class="card-body">
-            <h5 class="card-title" style="padding-left: 5px">Name: <%= p.name %></h5>
-            <h5 class="card-text" style="padding-left: 5px">Price: <%= p.price %></h5>
+            <h5 class="card-title" style="padding-left: 5px"><b>Name:</b> <%= p.name %></h5>
+            <h5 class="card-text" style="padding-left: 5px">
+              <b>Price:</b> <%= number_to_currency(p.price, unit: "", precision: 0) %> VND
+            </h5>
             <%= link_to "View", product_path(p.id), class: "btn btn-success" %>
           </div>
         </div>
       </div>
     <% end %>
   </div>
-  <% end %>
-  <div style="text-align: center;"><%= paginate @categories %></div>
-<% else %>
-  <div class="center jumbotron">
-    <h1>Welcome to the Hopee Shopping Cart App</h1>
-
-    <h2>
-      This is the home page for the Hopee Shopping Cart application.
-    </h2>
-
-    <%= link_to "Sign up now!", "#", class: "btn btn-lg btn-primary" %>
-  </div>
 <% end %>
-
-
+<div style="text-align: center;"><%= paginate @categories %></div>
 
 

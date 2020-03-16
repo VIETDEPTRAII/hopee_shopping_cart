@@ -34,7 +34,7 @@
               <% categories = current_shop.categories %>
               <% categories.each do |c| %>
                 <li class="divider"></li>
-                <li><%= link_to c.name, category_path(c) %></li>
+                <li><%= link_to c.name, category_path(c.id) if c.id %></li>
               <% end %>
             </ul>
           </li>
