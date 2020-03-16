@@ -1,0 +1,22 @@
+<% provide(:title, @customer.name) %>
+<div style="text-align: center;"><h1>User profile</h1></div>
+
+<div class="row">
+  <aside class="col-md-8">
+    <section class="shop_info">
+      <h1>
+        <%= gravatar_for @customer %>
+        Name: <%= @customer.name %>
+      </h1>
+      <h1>
+        Email: <%= @customer.email %>
+      </h1>
+      <h1>
+        Phone: <%= @customer.phone %>
+      </h1>
+      <h1>
+        Address: <%= @customer.address %>
+      </h1>
+    </section>
+  </aside>
+</div>
