@@ -26,6 +26,32 @@ module SessionsHelper
     @current_shop = nil
   end
 
+  # Logs in the given customer.
+  def log_in_customer(customer)
+    session[:customer_id] = customer.id
+  end
+
+  # Returns the current logged-in customer (if any).
+  def current_customer
+    if session[:customer_id]
+      @current_customer ||= Customer.find_by(id: session[:customer_id])
+    end
+  end
+
+  # Returns true if the given customer is the current customer.
+  def current_customer?(customer)
+    customer == current_customer
+  end
+
+  def logged_in_customer?
+    !current_customer.nil?
+  end
+
+  def log_out_customer
+    session.delete(:customer_id)
+    @current_customer = nil
+  end
+
   # Redirects to stored location (or to the default).
   def redirect_back_or(default)
     redirect_to(session[:forwarding_url] || default)
