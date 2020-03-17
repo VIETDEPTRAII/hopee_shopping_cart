@@ -1,6 +1,6 @@
 class ShopsController < ApplicationController
-  before_action :logged_in_shop, only: %i[edit update]
-  before_action :correct_shop,   only: %i[edit update]
+  before_action :logged_in_shop, only: %i[show edit update]
+  before_action :correct_shop,   only: %i[show edit update]
 
   def show
     @shop = Shop.find(params[:id])
