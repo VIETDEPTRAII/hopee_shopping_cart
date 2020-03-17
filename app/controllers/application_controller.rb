@@ -4,12 +4,21 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # Confirms a logged-in user.
+  # Confirms a logged-in shop.
   def logged_in_shop
     unless logged_in_shop?
       store_location
       flash[:danger] = 'Please login to your shop!'
       redirect_to login_shop_path
+    end
+  end
+
+  # Confirms a logged-in customer.
+  def logged_in_customer
+    unless logged_in_customer?
+      store_location
+      flash[:danger] = 'Please login account!'
+      redirect_to login_path
     end
   end
 end
