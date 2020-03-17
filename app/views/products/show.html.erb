@@ -49,7 +49,7 @@
                       class: "btn btn-lg btn-danger text-uppercase" %>
           <%= link_to "edit", edit_product_path, class: "btn btn-lg btn-success text-uppercase" %>
         <% end %>
-        <%= link_to "add to cart", "#", class: "btn btn-lg btn-primary text-uppercase" %>
+        <%= button_to "ADD TO CART", line_items_path(:product_id => @product.id), class: "btn btn-lg btn-primary" %>
       </article> <!-- card-body.// -->
     </aside> <!-- col.// -->
   </div> <!-- row.// -->

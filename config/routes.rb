@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'orders/index'
+  get 'orders/show'
+  get 'orders/new'
+  get 'carts/show'
   get 'customers/new'
   get '/search', to: 'pages#search_product_by_name'
   get 'categories/index'
@@ -18,8 +22,19 @@ Rails.application.routes.draw do
   get '/login',          to: 'sessions#new_customer'
   post '/login',         to: 'sessions#create_customer'
   delete '/logout',      to: 'sessions#destroy_customer'
+
+  get '/carts/:id',      to: 'carts#show', as: 'cart'
+  delete '/carts/:id',   to: 'carts#destroy'
+
+  post '/line_items/:id/add',    to: 'line_items#add_quantity',    as: 'line_item_add'
+  post '/line_items/:id/reduce', to: 'line_items#reduce_quantity', as: 'line_item_reduce'
+  post '/line_items',            to: 'line_items#create'
+  get '/line_items/:id',         to: 'line_items#show',            as: 'line_item'
+  delete '/line_items/:id',      to: 'line_items#destroy'
+
   resources :shops
   resources :products
   resources :categories
   resources :customers
+  resources :orders
 end
