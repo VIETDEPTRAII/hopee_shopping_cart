@@ -14,8 +14,43 @@
             </div>
           <% end %>
         </li>
+
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "Help",   help_path %></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            Products <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li style="padding-left: 20px"><h4>All categories</h4></li>
+            <% categories = Category.all %>
+            <% categories.each do |c| %>
+              <li class="divider"></li>
+              <li><%= link_to c.name, category_path(c.id) if c.id %></li>
+            <% end %>
+          </ul>
+        </li>
+
+        <% if logged_in_customer? %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", current_customer %></li>
+              <li><%= link_to "List order", "#" %></li>
+              <li><%= link_to "Settings", "#" %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", logout_path, method: :delete %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "Login", login_path %></li>
+        <% end %>
+
         <% if logged_in_shop? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -35,23 +70,6 @@
         <% else %>
           <li><%= link_to "Login shop", login_shop_path %></li>
         <% end %>
-        <% if logged_in_shop? %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Products <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li style="padding-left: 20px"><h4>All categories</h4></li>
-              <% categories = current_shop.categories %>
-              <% categories.each do |c| %>
-                <li class="divider"></li>
-                <li><%= link_to c.name, category_path(c.id) if c.id %></li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-        <li><%= link_to "Sign up shop", signup_shop_path %></li>
-        <li><%= link_to "Sign up", signup_path %></li>
       </ul>
     </nav>
   </div>

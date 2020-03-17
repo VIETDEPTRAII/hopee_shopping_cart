@@ -11,6 +11,7 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(customer_params)
     if @customer.save
+      log_in_customer @customer
       flash[:success] = 'Account created!'
       redirect_to @customer
     else
