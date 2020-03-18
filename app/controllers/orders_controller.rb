@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
 
   before_action :logged_in_customer, only: %i[new create show]
+  before_action :current_cart_empty?, only: %i[new create]
 
   def index
     @orders = Order.all
@@ -34,7 +35,13 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order)
-        .permit(:name, :email, :phone, :address)
-        .merge(pay_method: 'Cash', customer_id: current_customer.id)
+          .permit(:name, :email, :phone, :address)
+          .merge(pay_method: 'Cash', customer_id: current_customer.id,
+                 total_price: @current_cart.sub_total)
   end
+
+  def current_cart_empty?
+    redirect_to root_path if @current_cart.total_quantity.zero?
+  end
+
 end

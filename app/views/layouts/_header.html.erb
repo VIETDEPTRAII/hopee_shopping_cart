@@ -14,7 +14,15 @@
             </div>
           <% end %>
         </li>
-        <li><%= link_to "Cart", cart_path(@current_cart) %></li>
+
+        <li><%= link_to "Cart", cart_path(@current_cart) %>
+          <% if !@current_cart.total_quantity.zero? %>
+            <span class='badge badge-warning' style="position: absolute; top: 1px; left: 35px">
+              <%= @current_cart.total_quantity %>
+            </span>
+          <% end %>
+        </li>
+
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "Help",   help_path %></li>
 

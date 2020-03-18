@@ -3,8 +3,8 @@ class LineItem < ApplicationRecord
   belongs_to :cart
   belongs_to :order, optional: true
 
-  #LOGIC
+  # Return total_price of each line_item
   def total_price
-    self.quantity * self.product.price
+    quantity * product.price
   end
 end
