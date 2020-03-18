@@ -1,10 +1,14 @@
 class OrdersController < ApplicationController
 
-  before_action :logged_in_customer, only: %i[new create show]
+  before_action :logged_in_customer, only: %i[index show new create show]
   before_action :current_cart_empty?, only: %i[new create]
+  # before_action :correct_customer, only: %i[index show]
 
   def index
-    @orders = Order.all
+    if logged_in_customer?
+      @orders = current_customer.orders.paginate(page: params[:page],
+                                                 per_page: 50)
+    end
   end
 
   def show
