@@ -12,15 +12,15 @@
       </p>
       <p>
         <%= f.label :email %><br>
-        <%= f.email_field :email, :value => current_customer.email, class: "form-control" %>
+        <%= f.email_field :email, required: true, :value => current_customer.email, class: "form-control" %>
       </p>
       <p>
         <%= f.label :phone %><br>
-        <%= f.phone_field :phone, :value => current_customer.phone, class: "form-control" %>
+        <%= f.phone_field :phone, required: true, :value => current_customer.phone, class: "form-control" %>
       </p>
       <p>
         <%= f.label :address %><br>
-        <%= f.text_area :address, :value => current_customer.address, class: "form-control" %>
+        <%= f.text_area :address, required: true, :value => current_customer.address, class: "form-control" %>
       </p>
       <p>
         <%= f.submit "COMPLETE PURCHASE", class: "btn btn-success" %>
