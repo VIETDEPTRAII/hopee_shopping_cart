@@ -16,6 +16,7 @@ class LineItemsController < ApplicationController
       @line_item.cart = current_cart
       @line_item.product = chosen_product
       @line_item.price = @line_item.product.price
+      @line_item.shop_id = @line_item.product.shop.id
     end
 
     # Save and redirect to cart show path

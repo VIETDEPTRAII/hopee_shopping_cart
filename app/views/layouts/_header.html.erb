@@ -1,84 +1,215 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "Hopee Shopping Cart", root_path, id: "logo" %>
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <%= form_tag(search_path, :method => "get",
-                       class: 'navbar-form navbar-left') do %>
-            <div class="input-group">
-              <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
-              <div class="input-group-btn">
-                <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search', :name => nil %>
+<% if logged_in_shop? %>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <%= link_to "Hopee Shopping Cart", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= form_tag(search_path, :method => "get",
+                         class: 'navbar-form navbar-left') do %>
+              <div class="input-group">
+                <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+                <div class="input-group-btn">
+                  <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search', :name => nil %>
+                </div>
               </div>
-            </div>
-          <% end %>
-        </li>
+            <% end %>
+          </li>
 
-        <li><%= link_to "Cart", cart_path(@current_cart) %>
-          <% if !@current_cart.total_quantity.zero? %>
+          <li><%= link_to "Home",   root_path %></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Products <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li style="padding-left: 20px"><h4>All categories</h4></li>
+              <% categories = current_shop.categories %>
+              <% categories.each do |c| %>
+                <li class="divider"></li>
+                <li><%= link_to c.name, category_path(c.id) if c.id %></li>
+              <% end %>
+            </ul>
+          </li>
+
+          <% if logged_in_shop? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Shop account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_shop %></li>
+                <li><%= link_to "Products", products_path %></li>
+                <li><%= link_to "Categories", categories_path %></li>
+                <li><%= link_to "Ordered list of customer", order_shops_path %></li>
+                <li><%= link_to "Settings", edit_shop_path(current_shop) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out shop", logout_shop_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Login shop", login_shop_path %></li>
+          <% end %>
+
+          <li><%= link_to "Help",   help_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<% elsif logged_in_customer? %>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <%= link_to "Hopee Shopping Cart", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= form_tag(search_path, :method => "get",
+                         class: 'navbar-form navbar-left') do %>
+              <div class="input-group">
+                <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+                <div class="input-group-btn">
+                  <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search', :name => nil %>
+                </div>
+              </div>
+            <% end %>
+          </li>
+
+          <li><%= link_to "Home",   root_path %></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Products <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li style="padding-left: 20px"><h4>All categories</h4></li>
+              <% categories = Category.all %>
+              <% categories.each do |c| %>
+                <li class="divider"></li>
+                <li><%= link_to c.name, category_path(c.id) if c.id %></li>
+              <% end %>
+            </ul>
+          </li>
+
+          <% if logged_in_customer? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_customer %></li>
+                <li><%= link_to "Ordered list", orders_path %></li>
+                <li><%= link_to "Settings", edit_customer_path(current_customer) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out", logout_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Login", login_path %></li>
+          <% end %>
+
+          <li><%= link_to "Cart", cart_path(@current_cart) %>
+            <% if !@current_cart.total_quantity.zero? %>
             <span class='badge badge-warning' style="position: absolute; top: 1px; left: 35px">
               <%= @current_cart.total_quantity %>
             </span>
-          <% end %>
-        </li>
-
-        <li><%= link_to "Home",   root_path %></li>
-        <li><%= link_to "Help",   help_path %></li>
-
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            Products <b class="caret"></b>
-          </a>
-          <ul class="dropdown-menu">
-            <li style="padding-left: 20px"><h4>All categories</h4></li>
-            <% categories = Category.all %>
-            <% categories.each do |c| %>
-              <li class="divider"></li>
-              <li><%= link_to c.name, category_path(c.id) if c.id %></li>
             <% end %>
-          </ul>
-        </li>
+          </li>
 
-        <% if logged_in_customer? %>
+          <li><%= link_to "Help",   help_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<% else %>
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <%= link_to "Hopee Shopping Cart", root_path, id: "logo" %>
+      <nav>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <%= form_tag(search_path, :method => "get",
+                         class: 'navbar-form navbar-left') do %>
+              <div class="input-group">
+                <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>
+                <div class="input-group-btn">
+                  <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search', :name => nil %>
+                </div>
+              </div>
+            <% end %>
+          </li>
+
+          <li><%= link_to "Home",   root_path %></li>
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Account <b class="caret"></b>
+              Products <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Profile", current_customer %></li>
-              <li><%= link_to "List order", orders_path %></li>
-              <li><%= link_to "Settings", edit_customer_path(current_customer) %></li>
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out", logout_path, method: :delete %>
-              </li>
+              <li style="padding-left: 20px"><h4>All categories</h4></li>
+              <% categories = Category.all %>
+              <% categories.each do |c| %>
+                <li class="divider"></li>
+                <li><%= link_to c.name, category_path(c.id) if c.id %></li>
+              <% end %>
             </ul>
           </li>
-        <% else %>
-          <li><%= link_to "Login", login_path %></li>
-        <% end %>
 
-        <% if logged_in_shop? %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Shop account <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Profile", current_shop %></li>
-              <li><%= link_to "Products", products_path %></li>
-              <li><%= link_to "Categories", categories_path %></li>
-              <li><%= link_to "Settings", edit_shop_path(current_shop) %></li>
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out shop", logout_shop_path, method: :delete %>
-              </li>
-            </ul>
+          <% if logged_in_customer? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_customer %></li>
+                <li><%= link_to "List order", orders_path %></li>
+                <li><%= link_to "Settings", edit_customer_path(current_customer) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out", logout_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Login", login_path %></li>
+          <% end %>
+
+          <% if logged_in_shop? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Shop account <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "Profile", current_shop %></li>
+                <li><%= link_to "Products", products_path %></li>
+                <li><%= link_to "Categories", categories_path %></li>
+                <li><%= link_to "Settings", edit_shop_path(current_shop) %></li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "Log out shop", logout_shop_path, method: :delete %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Login shop", login_shop_path %></li>
+          <% end %>
+
+          <li><%= link_to "Cart", cart_path(@current_cart) %>
+            <% if !@current_cart.total_quantity.zero? %>
+            <span class='badge badge-warning' style="position: absolute; top: 1px; left: 35px">
+              <%= @current_cart.total_quantity %>
+            </span>
+            <% end %>
           </li>
-        <% else %>
-          <li><%= link_to "Login shop", login_shop_path %></li>
-        <% end %>
-      </ul>
-    </nav>
-  </div>
-</header>
+
+          <li><%= link_to "Help",   help_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+<% end %>
