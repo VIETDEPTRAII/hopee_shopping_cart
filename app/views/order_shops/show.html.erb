@@ -1,6 +1,6 @@
-<% provide(:title, "Order Detail") %>
+<% provide(:title, "Your Ordered Customer Detail") %>
 
-<h1>Order Detail</h1>
+<h1>Your Ordered Customer Detail</h1>
 <p>Order detail #<%= @order.id %> - <b>Ordered successfully</b></p>
 <p>Ordered date: <%= @order.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
 
@@ -43,7 +43,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @order.line_items.each do |line_item| %>
+  <% @order.line_items.where("shop_id = ?", current_shop.id).each do |line_item| %>
     <tr>
       <td data-th="Product">
         <div class="row">
@@ -76,7 +76,11 @@
     <td></td>
     <td colspan="2" class="hidden-xs"></td>
     <td class="hidden-xs text-center">
-      <strong>Total Price: <%= number_to_currency(@order.total_price, unit: "", delimiter: ".", precision: 0) %> VND</strong>
+      <strong>
+        Total Price:
+        <%= number_to_currency(total_price_of_current_shop(@order.line_items.where("shop_id = ?", current_shop.id)),
+                               unit: "", delimiter: ".", precision: 0) %> VND
+      </strong>
     </td>
   </tr>
   </tfoot>

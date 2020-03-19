@@ -49,7 +49,9 @@
                       class: "btn btn-lg btn-danger text-uppercase" %>
           <%= link_to "edit", edit_product_path, class: "btn btn-lg btn-success text-uppercase" %>
         <% end %>
-        <%= button_to "ADD TO CART", line_items_path(:product_id => @product.id), class: "btn btn-lg btn-primary" %>
+        <% unless logged_in_shop? %>
+          <%= button_to "ADD TO CART", line_items_path(:product_id => @product.id), class: "btn btn-lg btn-primary" %>
+        <% end %>
       </article> <!-- card-body.// -->
     </aside> <!-- col.// -->
   </div> <!-- row.// -->
