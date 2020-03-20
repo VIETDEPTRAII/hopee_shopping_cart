@@ -26,7 +26,11 @@ class OrdersController < ApplicationController
       item.cart_id = nil
     end
     if @order.save
-      flash[:success] = 'Your order created!'
+      CustomerMailer.with(order: @order).order_information.deliver_later
+      ShopMailer.with(order: @order).new_order_of_customer.deliver_later
+
+      flash[:success] = 'Your order created.
+                        Check your email to confirm the order!'
       Cart.destroy(session[:cart_id])
       session[:cart_id] = nil
       redirect_to root_path

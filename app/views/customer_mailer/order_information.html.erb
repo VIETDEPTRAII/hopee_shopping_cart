@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Your order confirmation</title>
+    <meta name="description" content="This is an order confirmation of customer">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1 style="text-align: center">Your order confirmation</h1>
+      <p>Order detail #<%= @order.id %> - <b>Ordered successfully</b></p>
+      <p>Ordered date: <%= @order.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+      <p>Your name: <b><%= @order.name %></b></p>
+      <p>Phone: <b><%= @order.phone %></b></p>
+      <p>Address: <b><%= @order.address %></b></p>
+      <p>Payment method: <%= @order.pay_method %></p>
+      <p><strong>FREE SHIP</strong></p>
+      <table class="table table-hover" style="margin-top: 10px">
+        <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit price</th>
+          <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% @order.line_items.each do |line_item| %>
+              <th scope="row"><%= line_item.product.name %></th>
+              <td><%= line_item.quantity %></td>
+              <td><%= number_to_currency(line_item.product.price, unit: "", delimiter: ".", precision: 0) %> VND</td>
+              <td><%= number_to_currency(line_item.total_price, unit: "", delimiter: ".", precision: 0) %> VND</td>
+            <% end %>
+          </tr>
+          <tr>
+            <td colspan="4" style="text-align: end">
+              <strong>Total Price: <%= number_to_currency(@order.total_price, unit: "", delimiter: ".", precision: 0) %> VND</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
