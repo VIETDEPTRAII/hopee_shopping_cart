@@ -1,0 +1,16 @@
+Your order confirmation
+Order detail #<%= @order.id %> - Ordered successfully
+Ordered date: <%= @order.created_at.strftime("%Y-%m-%d %H:%M:%S") %>
+
+Your Name: <%= @order.name %>
+Phone: <%= @order.phone %>
+Address: <%= @order.address %>
+Payment method: <%= @order.pay_method %>
+FREE SHIP
+===============================================
+Order Details:
+<% @order.line_items.each do |line_item| %>
+  Product: <%= line_item.product.name %>, Quantity: <%= line_item.quantity %>, Unit Price: <%= number_to_currency(line_item.product.price, unit: "", delimiter: ".", precision: 0) %> VND, Price: <%= number_to_currency(line_item.total_price, unit: "", delimiter: ".", precision: 0) %> VND
+<% end %>
+
+  Total price: <%= number_to_currency(@order.total_price, unit: "", delimiter: ".", precision: 0) %>
