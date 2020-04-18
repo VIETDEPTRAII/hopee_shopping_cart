@@ -13,6 +13,15 @@
     <aside class="col-sm-7">
       <article class="card-body p-5">
         <h3 class="title mb-3"><%= @product.name %></h3>
+        <% if @product.product_rating.present? %>
+          <div class="review-rating" data-score = "<%= @product.product_rating.rating %>">
+            <label>Rating</label>
+          </div>
+        <% else %>
+          <div id="rating-form">
+            <label>Rating</label>
+          </div>
+        <% end %>
         <p class="price-detail-wrap">
           <span class="price h3 text-warning">
             <span class="currency"></span><span class="num">
@@ -56,3 +65,22 @@
     </aside> <!-- col.// -->
   </div> <!-- row.// -->
 </div> <!-- card.// -->
+
+<script>
+    $(document).ready(function(){
+        $('.review-rating').raty({
+            readOnly: true,
+            score: function() {
+                return $(this).attr('data-score');
+            },
+            path: '/assets/',
+        });
+    });
+
+    $(document).ready(function(){
+        $('#rating-form').raty({
+            readOnly: true,
+            path: '/assets/',
+        });
+    });
+</script>

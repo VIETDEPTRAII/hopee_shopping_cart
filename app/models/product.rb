@@ -3,6 +3,8 @@ class Product < ApplicationRecord
   has_many :products_categories
   has_many :categories, through: :products_categories
   has_many :line_items, dependent: :destroy
+  has_one :product_rating, inverse_of: :product, autosave: true, dependent: :destroy
+  accepts_nested_attributes_for :product_rating
 
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader

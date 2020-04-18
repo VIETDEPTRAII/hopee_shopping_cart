@@ -8,6 +8,15 @@
         <img src="<%= p.picture %>" class="card-img-top" style="width: 212px; height: 200px" alt="<%= p.name %>">
         <div class="card-body">
           <h5 class="card-title" style="padding-left: 5px"><b>Name:</b> <%= p.name %></h5>
+          <% if p.product_rating.present? %>
+            <h5 class="review-rating" data-score = "<%= p.product_rating.rating %>" style="padding-left: 5px">
+              <label>Rating</label>
+            </h5>
+          <% else %>
+            <h5 id="rating-form" style="padding-left: 5px">
+              <label>Rating</label>
+            </h5>
+          <% end %>
           <h5 class="card-text" style="padding-left: 5px"><b>Price:</b>
             <%= number_to_currency(p.price, unit: "", delimiter: ".", precision: 0) %>
           </h5>
@@ -18,4 +27,23 @@
   <% end %>
 </div>
 <div style="text-align: center;"><%= will_paginate @products %></div>
+
+<script>
+    $(document).ready(function(){
+        $('.review-rating').raty({
+            readOnly: true,
+            score: function() {
+                return $(this).attr('data-score');
+            },
+            path: '/assets/',
+        });
+    });
+
+    $(document).ready(function(){
+        $('#rating-form').raty({
+            readOnly: true,
+            path: '/assets/',
+        });
+    });
+</script>
 

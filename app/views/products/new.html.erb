@@ -19,6 +19,14 @@
     <%= f.label :total, "quantity" %>
     <%= f.text_field :total, class: "form-control" %>
 
+    <%#= f.fields_for :product_rating do |product_rating| %>
+      <%#= product_rating.label :rating %>
+      <%#= product_rating.number_field :rating, class: "form-control" %>
+    <%# end %>
+    <div id="rating-form">
+      <label>Rating</label>
+    </div>
+
     <span class="picture">
       <%= f.file_field :picture %>
     </span>
@@ -26,3 +34,15 @@
     <%= f.submit "Create product", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script>
+  $(document).ready(function(){
+      $('#rating-form').raty({
+          half: true,
+          cancel: true,
+          cancelPlace: 'right',
+          path: '/assets/',
+          scoreName: 'product[product_rating_attributes][rating]'
+      });
+  });
+</script>

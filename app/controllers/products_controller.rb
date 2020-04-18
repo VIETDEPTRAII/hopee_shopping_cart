@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
   def new
     if logged_in_shop?
       @product = current_shop.products.build
+      @product_rating = @product.build_product_rating
     end
   end
 
@@ -60,6 +61,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :description, :price,
-                                    :total, :picture, :category_ids)
+                                    :total, :picture, :category_ids,
+                                    product_rating_attributes: %i[id product_id rating],)
   end
 end

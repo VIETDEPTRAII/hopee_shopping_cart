@@ -16,6 +16,16 @@
     <%= f.label :total, "quantity" %>
     <%= f.text_field :total, class: "form-control" %>
 
+    <% if @product.product_rating.present? %>
+      <div class="review-rating" data-score = "<%= @product.product_rating.rating %>">
+        <label>Rating</label>
+      </div>
+    <% else %>
+      <div id="rating-form">
+        <label>Rating</label>
+      </div>
+    <% end %>
+
     <span><img src="<%= @product.picture %>" style="width: 212px; height: 200px" alt="product"></span>
 
     <span class="picture">
@@ -25,3 +35,31 @@
     <%= f.submit "Save changes", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script>
+    $(document).ready(function(){
+        $('.review-rating').raty({
+            score: function() {
+                return $(this).attr('data-score');
+            },
+            half: true,
+            cancel: true,
+            cancelPlace: 'right',
+            path: '/assets/',
+            starHalf: 'big_star_half',
+            starOn: 'big_star_on',
+            starOff: 'big_star_off',
+            scoreName: 'product[product_rating_attributes][rating]'
+        });
+    });
+
+    $(document).ready(function(){
+        $('#rating-form').raty({
+            half: true,
+            cancel: true,
+            cancelPlace: 'right',
+            path: '/assets/',
+            scoreName: 'product[product_rating_attributes][rating]'
+        });
+    });
+</script>
