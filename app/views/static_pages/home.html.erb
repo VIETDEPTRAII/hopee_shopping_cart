@@ -1,37 +1,24 @@
 <% provide(:title, "Home") %>
 
-<div style="text-align: center;"><h1>Home page</h1></div>
+<div style="text-align: center;"><h1 style="margin-bottom: 0;">Home page</h1></div>
+
 <% @categories.each do |c| %>
-  <h3 style="border-bottom: #2E2F30 solid 1px "><%= c.name %></h3>
-  <div class="row">
+  <h3 style="border-bottom: #2E2F30 solid 1px;"><%= c.name %></h3>
+  <div class="row product-list">
     <% c.products.each do |p| %>
-      <div class="col-md-3 col-sm-6" style="margin-top: 20px">
-        <div class="card">
-          <a href="<%= product_path(p.id) %>">
-            <img src="<%= p.picture %>" class="card-img-top" style="width: 212px;
-              height: 200px" alt="<%= p.name %>">
-          </a>
-          <div class="card-body">
-            <h5 class="card-title" style="padding-left: 5px"><b>Name:</b> <%= p.name %></h5>
-            <% if p.product_rating.present? %>
-              <h5 class="review-rating" data-score = "<%= p.product_rating.rating %>" style="padding-left: 5px">
-                <label>Rating</label>
-              </h5>
-            <% else %>
-              <h5 id="rating-form" style="padding-left: 5px">
-                <label>Rating</label>
-              </h5>
-            <% end %>
-            <h5 class="card-text" style="padding-left: 5px">
-              <b>Price:</b> <%= number_to_currency(p.price, unit: "", delimiter: ".", precision: 0) %> VND
-            </h5>
-            <%= link_to "View", product_path(p.id), class: "btn btn-success" %>
-          </div>
+      <div class="col-md-3 product">
+        <div class="product-card">
+          <%= link_to image_tag("#{p.picture}"), product_path(p.id), alt: p.name %>
+          <h2><%= p.name %></h2>
+          <p class="price"><%= number_to_currency(p.price, unit: "", delimiter: ".", precision: 0) %> ₫</p>
+          <p class="desc"><%= p.description %></p>
+          <%= button_to 'Add to cart', line_items_path(:product_id => p.id), class: 'add-to-cart-button'%>
         </div>
       </div>
     <% end %>
   </div>
 <% end %>
+
 <div style="text-align: center;"><%= paginate @categories %></div>
 
 <script>
@@ -52,5 +39,3 @@
         });
     });
 </script>
-
-
